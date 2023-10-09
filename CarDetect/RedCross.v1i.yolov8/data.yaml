@@ -1,0 +1,12 @@
+train: D:\APP\HUAWEI_LiteOS_Studio\Enigineer_innovation_train_lib\QcarProject\car_detect\RedCross.v1i.yolov8\train\images
+val: D:\APP\HUAWEI_LiteOS_Studio\Enigineer_innovation_train_lib\QcarProject\car_detect\RedCross.v1i.yolov8\valid\images
+
+nc: 1
+names: ['RedCross']
+
+roboflow:
+  workspace: htx-lw132
+  project: redcross
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/htx-lw132/redcross/dataset/1
