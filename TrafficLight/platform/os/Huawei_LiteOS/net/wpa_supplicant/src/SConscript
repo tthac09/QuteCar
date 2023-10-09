@@ -1,0 +1,125 @@
+import os
+
+Import('env')
+Import('id_dict')
+import os, sys, datetime
+from scons_utils import *
+
+env = env.Clone()
+
+common_srcs = [os.path.join('common', 'ieee802_11_common.c'), os.path.join('common', 'wpa_common.c'), os.path.join('common', 'hw_features_common.c')]
+
+crypto_srcs = ['aes-omac1.c', 'aes-unwrap.c', 'aes-wrap.c', 'random.c', 'rc4.c', 'crypto_mbedtls.c',
+    'dh_groups.c', 'sha1-prf.c', 'sha256-prf.c', 'tls_internal.c', ]
+tmp = []
+for src in crypto_srcs:
+    tmp.append(os.path.join('crypto', src))
+crypto_srcs = tmp
+tmp = []
+
+drv_srcs = [os.path.join('drivers', 'drivers.c'), os.path.join('drivers', 'driver_common.c'), os.path.join('drivers', 'driver_hisi.c'),
+    os.path.join('drivers', 'driver_hisi_ioctl.c')]
+
+eap_srcs = [os.path.join('eapol_supp', 'eapol_supp_sm.c'), os.path.join('eap_peer', 'eap.c'), os.path.join('eap_common', 'eap_common.c'),
+    os.path.join('eap_peer', 'eap_methods.c'), os.path.join('eapol_auth', 'eapol_auth_sm.c'), os.path.join('eap_server', 'eap_server.c'),
+    os.path.join('eap_server', 'eap_server_identity.c'), os.path.join('eap_server', 'eap_server_methods.c')]
+
+other_srcs = [os.path.join('l2_packet', 'l2_packet_rtos.c'), os.path.join('rsn_supp', 'wpa.c'), os.path.join('rsn_supp', 'wpa_ie.c'),
+    os.path.join('tls', 'bignum.c')]
+
+utils_srcs = ['base64.c', 'common.c', 'ip_addr.c', 'uuid.c', 'wpa_debug.c', 'wpabuf.c', 'os_rtos.c']
+for src in utils_srcs:
+    tmp.append(os.path.join('utils', src))
+utils_srcs = tmp
+tmp = []
+
+p2p_srcs = []
+if scons_usr_bool_option('CONFIG_P2P_SUPPORT') == 'y':
+    p2p_srcs.append(os.path.join('p2p' , 'p2p.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_utils.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_parse.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_build.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_go_neg.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_sd.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_pd.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_invitation.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_dev_disc.c'))
+    p2p_srcs.append(os.path.join('p2p' , 'p2p_group.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_common.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_attr_parse.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_attr_build.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_attr_process.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_dev_attr.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_enrollee.c'))
+    p2p_srcs.append(os.path.join('wps' , 'wps_registrar.c'))
+    p2p_srcs.append(os.path.join('eap_common' , 'eap_wsc_common.c'))
+    p2p_srcs.append(os.path.join('eap_peer' , 'eap_wsc.c'))
+    p2p_srcs.append(os.path.join('ap' , 'p2p_hostapd.c'))
+    p2p_srcs.append(os.path.join('utils' , 'bitfield.c'))
+    p2p_srcs.append(os.path.join('common' , 'gas.c'))
+    p2p_srcs.append(os.path.join('eap_server' , 'eap_server_wsc.c'))
+    p2p_srcs.append(os.path.join('ap' , 'wps_hostapd.c'))
+
+wps_srcs = []
+if scons_usr_bool_option('CONFIG_WPS_SUPPORT') == 'y':
+    wps_srcs.append(os.path.join('wps' , 'wps.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_common.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_attr_parse.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_attr_build.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_attr_process.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_dev_attr.c'))
+    wps_srcs.append(os.path.join('wps' , 'wps_enrollee.c'))
+    wps_srcs.append(os.path.join('eap_common' , 'eap_wsc_common.c'))
+    wps_srcs.append(os.path.join('eap_peer' , 'eap_wsc.c'))
+
+mesh_srcs = []
+if scons_usr_bool_option('CONFIG_MESH_SUPPORT') == 'y':
+    mesh_srcs.append(os.path.join('crypto' , 'crypto_internal.c'))
+    mesh_srcs.append(os.path.join('crypto' , 'tls_none.c'))
+    mesh_srcs.append(os.path.join('crypto' , 'aes-siv.c'))
+    mesh_srcs.append(os.path.join('crypto' , 'aes-ctr.c'))
+    mesh_srcs.append(os.path.join('crypto' , 'des-internal.c'))
+
+wpa3_srcs = []
+if scons_usr_bool_option('CONFIG_WPA3_SUPPORT') == 'y':
+    wpa3_srcs.append(os.path.join('rsn_supp', 'pmksa_cache.c'))
+
+mesh_wpa3_srcs = []
+if scons_usr_bool_option('CONFIG_MESH_SUPPORT') == 'y' or scons_usr_bool_option('CONFIG_WPA3_SUPPORT') == 'y':
+    mesh_wpa3_srcs.append(os.path.join('common' , 'sae.c'))
+    mesh_wpa3_srcs.append(os.path.join('common' , 'dragonfly.c'))
+
+ap_srcs = ['hostapd.c', 'bss_load.c', 'wpa_auth_glue.c', 'utils.c', 'ap_config.c', 'sta_info.c', 'tkip_countermeasures.c', 'ap_mlme.c',
+    'ieee802_11_shared.c', 'drv_callbacks.c', 'ap_drv_ops.c', 'ieee802_11_ht.c', 'ieee802_11.c', 'hw_features.c', 'wpa_auth.c',
+    'wpa_auth_ie.c', 'pmksa_cache_auth.c', 'ieee802_1x.c', 'eap_user_db.c', 'beacon.c', ]
+for src in ap_srcs:
+    tmp.append(os.path.join('ap', src))
+ap_srcs = tmp
+tmp = []
+
+all_srcs = []
+all_srcs.extend(ap_srcs)
+all_srcs.extend(mesh_srcs)
+all_srcs.extend(wps_srcs)
+#all_srcs.extend(p2p_srcs)
+all_srcs.extend(utils_srcs)
+all_srcs.extend(other_srcs)
+all_srcs.extend(eap_srcs)
+all_srcs.extend(drv_srcs)
+all_srcs.extend(crypto_srcs)
+all_srcs.extend(common_srcs)
+all_srcs.extend(wpa3_srcs)
+all_srcs.extend(mesh_wpa3_srcs)
+
+objs = []
+for src in all_srcs:
+    base_name = os.path.basename(src)
+    if base_name in id_dict:
+        c_env = env.Clone()
+        c_env.Append(CPPDEFINES = [('__NEW_FILE_ID__', id_dict[base_name])])
+        objs.append(c_env.Object(src))
+    else:
+        objs.append(env.Object(src))
+objs.sort()
+Return('objs')

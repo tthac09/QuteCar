@@ -1,0 +1,8 @@
+{
+    "liteos-studio-debug.JLinkGDBServerPath": "C:\\Program Files (x86)\\SEGGER\\JLink",
+    "liteos-studio-debug.armToolchainPath": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+    "liteos-studio-debug.armToolchainPrefix": "riscv32-unknown-elf",
+    "C_Cpp.default.compilerPath": "tools\\hi3861\\hcc_riscv32_win\\bin\\riscv32-unknown-elf-gcc.exe",
+    "C_Cpp.default.cStandard": "c99",
+    "C_Cpp.default.intelliSenseMode": "gcc-arm"
+}

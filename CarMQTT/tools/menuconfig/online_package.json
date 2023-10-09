@@ -1,0 +1,12 @@
+{
+  "hilink":
+  {
+    "url": "http://10.175.113.117:8080/studio/archive/hilinksdk.zip",
+    "config_name": "HiLink support"
+  },
+  "histreaming": 
+  {
+    "url": "http://10.175.113.117:8080/studio/archive/histreaming.zip",
+    "config_name": "HiStreaming support"
+  }
+}

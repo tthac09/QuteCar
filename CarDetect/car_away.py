@@ -13,7 +13,7 @@ from huaweicloudsdkiotda.v5 import *
 from huaweicloudsdkcore.auth.credentials import BasicCredentials
 from huaweicloudsdkcore.auth.credentials import DerivedCredentials
 
-car_device_id = "647848bff4d13061fc88addb_SportsCarB"
+car_device_id = "SportsCarB"
 
 def procMQTTMsg(result):
     print("Begin to send msg!")
@@ -23,11 +23,11 @@ def procMQTTMsg(result):
 
 def sendCMD(device_id=car_device_id, service_id="TrafficLight", command_name="ControlModule",
             paras={"Light": "GREEN_LED_ON"}):
-    ak = "MZOLJXIKL7BYHIDJCPDD"
-    sk = "6DrSd9ZDEK20TNX34oQlOcTuTQCorG0nlj5it84X"
-    project_id = "a50c1d44bb81476fb42e1fee5a77712e"
+    ak = ""
+    sk = ""
+    project_id = ""
     region_id = "cn-north-4"
-    endpoint = "22cd56e00c.st1.iotda-app.cn-north-4.myhuaweicloud.com"
+    endpoint = ".st1.iotda-app.cn-north-4.myhuaweicloud.com"
 
     REGION = Region(region_id, endpoint)
 

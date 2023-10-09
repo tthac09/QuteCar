@@ -1,0 +1,9 @@
+#src file(.c) root dir
+PRIM_XML_SRC_ROOT_DIR:=$(PRJ_ROOT)/platform/os/Huawei_LiteOS/net/wpa_supplicant
+#src file(.c) sub dir
+PRIM_XML_SRC_SUB_DIR:=hostapd src/ap src/common src/crypto src/drivers src/eap_common src/eap_peer src/eap_server \
+src/eapol_auth src/eapol_supp src/fst src/l2_packet src/p2p src/rsn_supp src/tls src/utils src/wps wpa_supplicant ltos_src
+PRIM_XML_FILE_ID_FILE:= $(PRIM_XML_SRC_ROOT_DIR)/file_id.cfg
+PRIM_XML_MOD_ID_FILE:= $(PRIM_XML_SRC_ROOT_DIR)/mod_id.cfg
+#key_word for avoid file(folder) name collision with other module
+PRIM_XML_KEY_WORD:=wpa_sup

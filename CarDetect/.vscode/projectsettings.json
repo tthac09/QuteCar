@@ -1,0 +1,59 @@
+{
+    "mcuChildExtension": {
+        "active": "false"
+    },
+    "compiler": {
+        "type": "GCC-Makefile",
+        "path": ".\\tools\\arm-none-eabi\\bin",
+        "make": {
+            "path": ".\\tools\\build\\bin\\make.exe",
+            "script": "",
+            "args": null
+        },
+        "gdbPath": ".\\tools\\arm-none-eabi\\bin",
+        "prefix": "arm-none-eabi"
+    },
+    "output": {
+        "name": "",
+        "path": ""
+    },
+    "target": {},
+    "debugger": {
+        "type": "JLink",
+        "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+        "jlink": {
+            "interface": "SWD",
+            "speed": "8000",
+            "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+            "port": "USB"
+        },
+        "interface": "SWD",
+        "initType": "reset",
+        "initFile": ".vscode\\attach.gdbinit",
+        "compileOS": "Windows",
+        "compilePath": null,
+        "gdbPath": ".\\tools\\arm-none-eabi\\bin",
+        "param": "-f interface/stlink-v2-1.cfg -f target/stm32f7x.cfg"
+    },
+    "burner": {
+        "type": "JLink",
+        "speed": "8000",
+        "flashAddress": "null",
+        "loadAddress": "0x08000000",
+        "interface": "SWD",
+        "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+        "param": "-f interface/stlink-v2-1.cfg -f target/stm32f4x.cfg",
+        "erase": true,
+        "check": true,
+        "romsize": null,
+        "connection": "serial"
+    },
+    "serialPort": {
+        "port": "COM1",
+        "baudRate": "115200",
+        "dataBit": 8,
+        "stopBit": 1,
+        "parity": "None",
+        "flowControl": "None"
+    }
+}

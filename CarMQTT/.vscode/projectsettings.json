@@ -1,0 +1,136 @@
+{
+    "mcuChildExtension": {
+        "active": "false"
+    },
+    "compiler": {
+        "type": "GCC-Scons",
+        "path": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+        "make": {
+            "path": ".\\tools\\build\\bin\\make.exe",
+            "script": "d:\\APP\\HUAWEI_LiteOS_Studio\\Enigineer_innovation_train_lib\\QcarProject\\SmartRobotMQTT\\SConstruct",
+            "args": "-j 32"
+        },
+        "gdbPath": ".\\tools\\arm-none-eabi\\bin",
+        "prefix": "riscv32-unknown-elf"
+    },
+    "output": {
+        "name": "",
+        "path": ".\\output\\bin\\Hi3861_demo_allinone.bin",
+        "burnPaths": [
+            ".\\output\\bin\\Hi3861_boot_signed.bin",
+            ".\\output\\bin\\Hi3861_boot_signed_B.bin",
+            ".\\output\\bin\\Hi3861_demo_flash_boot_ota.bin",
+            ".\\output\\bin\\Hi3861_loader_signed.bin",
+            ".\\output\\bin\\Hi3861_demo_allinone.bin",
+            ".\\output\\bin\\Hi3861_demo_burn.bin",
+            ".\\output\\bin\\Hi3861_demo_ota.bin"
+        ],
+        "elfPaths": [],
+        "asmPaths": [
+            ".\\output\\bin\\Hi3861_demo.asm"
+        ],
+        "debugPaths": [
+            ".\\output\\bin\\Hi3861_demo.out"
+        ]
+    },
+    "target": {
+        "UUID": "4422b3af-ac89-4410-88a8-f0b962428569",
+        "flag": "0",
+        "factory": "HiSilicon",
+        "boardName": "Hi3861V100",
+        "productName": "WiFi IoT",
+        "core": "LinxCore131",
+        "numberCores": 1,
+        "flashSize": "",
+        "romAddress": "",
+        "ramSize": "",
+        "ramAddress": "",
+        "restartAddress": "",
+        "featuresAddress": "",
+        "dataSheetAddress": "",
+        "operation": ""
+    },
+    "debugger": {
+        "type": "JLink",
+        "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+        "jlink": {
+            "interface": "SWD",
+            "speed": "8000",
+            "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+            "port": "USB"
+        },
+        "interface": "SWD",
+        "initType": "launch",
+        "initFile": ".vscode\\attach.gdbinit",
+        "compileOS": "Windows",
+        "compilePath": null,
+        "gdbPath": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+        "param": "-f interface/stlink-v2-1.cfg -f target/stm32f7x.cfg"
+    },
+    "burner": {
+        "type": "HiBurner",
+        "speed": "2000",
+        "flashAddress": "null",
+        "loadAddress": "0x400000",
+        "interface": "JTAG",
+        "path": ".\\tools\\hi3861\\hiburn",
+        "erase": true,
+        "check": true,
+        "romsize": null,
+        "connection": "serial"
+    },
+    "serialPort": {
+        "port": "COM5",
+        "baudRate": "115200",
+        "dataBit": 8,
+        "stopBit": 1,
+        "parity": "None",
+        "flowControl": "None"
+    },
+    "component": {
+        "CE Authentication": "Y",
+        "COAP support": "Y",
+        "DMA driver support": "N",
+        "ECC": "N",
+        "Enable AT command": "Y",
+        "Enable DHCP Hostname (Option12)": "N",
+        "Enable DHCP Vendorname (Option60)": "N",
+        "Enable MESH": "N",
+        "Enable Option Router (Option3)": "Y",
+        "Enable WPS": "N",
+        "Enable bootloader encryption": "N",
+        "Enable debug log": "N",
+        "Enable file system": "N",
+        "Enable uart0 IO mux config": "Y",
+        "Enable uart1 IO mux config": "Y",
+        "Enable uart2 IO mux config": "N",
+        "FCC Authentication": "N",
+        "FLASH ENCRYPT support": "N",
+        "Hi3861": "Y",
+        "Hi3861L": "N",
+        "HiLink support": "N",
+        "Histreaming support": "Y",
+        "Lwip Support Lowpower Mode": "N",
+        "MQTT support": "Y",
+        "PWM driver support": "Y",
+        "PWM hold after reboot": "Y",
+        "RSA_PSS": "N",
+        "RSA_V15": "N",
+        "SDIO driver support": "N",
+        "SHA256": "Y",
+        "SPI driver support": "N",
+        "SPI support DMA": "N",
+        "TEE HUKS support": "N",
+        "UART support DMA": "N",
+        "boot ver(value form 0 to 16)": "0",
+        "cJson nest limit size": "1000",
+        "cJson support": "Y",
+        "compression ota support": "Y",
+        "dual-partition ota support": "N",
+        "factory test enable": "N",
+        "i2c driver support": "Y",
+        "i2s driver support": "N",
+        "iperf support": "Y",
+        "kernel ver(value form 0 to 48)": "0"
+    }
+}

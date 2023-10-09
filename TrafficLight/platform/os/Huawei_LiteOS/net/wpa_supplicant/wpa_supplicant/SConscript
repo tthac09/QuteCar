@@ -1,0 +1,47 @@
+import os
+
+Import('env')
+Import('id_dict')
+import os, sys, datetime
+from scons_utils import *
+
+env = env.Clone()
+
+all_srcs = []
+p2p_srcs = []
+mesh_srcs = []
+
+if scons_usr_bool_option('CONFIG_MESH_SUPPORT') == 'y':
+    mesh_srcs = ['mesh.c', 'mesh_mpm.c', 'mesh_rsn.c', 'wifi_mesh_api.c',]
+
+wpa3_srcs = []
+if scons_usr_bool_option('CONFIG_WPA3_SUPPORT') == 'y':
+    wpa3_srcs = ['sme.c',]
+
+if scons_usr_bool_option('CONFIG_P2P_SUPPORT') == 'y':
+    p2p_srcs = ['wps_supplicant.c', 'p2p_supplicant.c', 'p2p_supplicant_sd.c', 'gas_query.c', 'offchannel.c',]
+
+wps_srcs = []
+if scons_usr_bool_option('CONFIG_WPS_SUPPORT') == 'y':
+    wps_srcs = ['wps_supplicant.c', 'notify.c',]
+
+sup_srcs = ['bss.c', 'config.c', 'config_none.c', 'ctrl_iface.c', 'ctrl_iface_rtos.c', 'wpa_cli_rtos.c', 'eap_register.c',
+    'events.c', 'main_rtos.c', 'scan.c', 'wpa_supplicant.c', 'wpas_glue.c', 'ap.c', 'wifi_api.c', 'wifi_softap_api.c',]
+
+all_srcs.extend(wps_srcs)
+#all_srcs.extend(p2p_srcs)
+all_srcs.extend(sup_srcs)
+all_srcs.extend(mesh_srcs)
+all_srcs.extend(wpa3_srcs)
+
+objs = []
+for src in all_srcs:
+    base_name = os.path.basename(src)
+    if base_name in id_dict:
+        c_env = env.Clone()
+        c_env.Append(CPPDEFINES = [('__NEW_FILE_ID__', id_dict[base_name])])
+        objs.append(c_env.Object(src))
+    else:
+        objs.append(env.Object(src))
+objs.sort()
+Return('objs')

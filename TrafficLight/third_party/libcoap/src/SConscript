@@ -1,0 +1,7 @@
+Import('env')
+
+env = env.Clone()
+
+objs = env.Object(Glob('*.c', exclude=['async.c', 'coap_event.c', 'coap_gnutls.c', 'coap_io.c', 'coap_openssl.c', 'coap_time.c',
+    'coap_tinydtls.c', 'mem.c', 'coap_debug.c', 'coap_notls.c']))
+Return('objs')
