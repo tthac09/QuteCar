@@ -6,67 +6,39 @@ This is an Engineering Innovation Practice Course Project of our group. We tried
 
 ## Details
 
-Three 
+### Hardware
 
-=================================
-## 一、项目目的
-本项目用于验证5G智能交通方案的可行性
-## 二、项目方案
-### 紧急车辆的红绿灯自动控制
-在新闻报道中，紧急车辆闯红灯而造成交通事故，或者其它车辆在交汇路口为避让紧急车辆而造成交通事故的案例并不少见。为规避紧急车辆通过红灯路口造成事故的风险，我们团队提出利用视觉算法YOLOv8，捕捉即将通过红灯路口的紧急车辆，并通过云端自动下发命令，调整交通信号，保证紧急车辆顺利通行。
-### 紧急车辆的联动让行
-在较为拥挤的路段，车辆的缓慢行驶会使得紧急车辆难以快速通行，容易造成紧急事件无法及时处理。为避免上述情况的发生，我们团队提出利用云端命令控制，对自动驾驶的车辆进行正确、安全的自动操控，使其避让紧急车辆，保证紧急车辆流畅通行。
-## 三、项目说明
-本项目主要包含三个文件，说明如下
+Three sets of HiSpark WiFi-IoT Smart Robot Car Developer Kit ([Link](www.hihope.org/en/pro/pro1.aspx?mtt=55)) produced by HiHope are used in place of three vehicles, one for a emergency vehicle named Ambulance, the others for private cars named SportA and SportB.
 
-文件名                       | 文件说明
---------------------------- | ------------------------------------ 
-car_detect                  | 实现yolov8检测紧急车辆
-SmartRobotMQTT              | 控制智能小车代码文件
-traffic_iot                 | 控制交通信号灯代码文件
+三套由 HiHope 润和生产的 HiSpark WiFi-IoT 智能小车开发套件（[链接](www.hihope.org/pro/pro1.aspx?mtt=55)）被用来模拟三辆车，其中一辆是被标记为 Ambulance 的紧急车辆，另两辆都是私家车，分别被标记为 SportA 和 SportB。
 
-## 四、实现功能
-### 智能小车部分
-#### 自动循迹功能
-利用一对灰度传感器，实时检测地面灰度值，利用程序处理灰度值后对智能小车的两侧电机进行调正，实现小车自主循迹功能。在循迹过程中，调用自动避障模块对车辆前方障碍物进行实时检测，避免发生碰撞。
-#### 自动避障功能
-利用一个超声波发射器和一个超声波接收器，对距离进行实时检测，从而实现对障碍物的实时识别，进而对小车的行驶进行调控。
-#### 5G通信功能
-利用HiSpark_Wifi_IoT模块，将智能小车接入指定网络，实现小车接收、发送信息的功能。
-#### 云端实时控制功能
-利用5G通信功能，将智能小车接入华为云，并采用MQTT协议实现信息传输，从而实现从云端下发命令，实时检测、控制小车运动的功能。控制模式包括但不限于：
-* 自动循迹
-* 自动避障
-* 自动循迹及自动避障
-* 原地停止
-* 左转
-* 右转
-* 前进指定时间
-* 后退指定时间
-### 交通信号灯部分
-#### 5G通信功能
-利用HiSpark_Wifi_IoT模块，将交通信号灯接入指定网络，实现交通信号灯接收、发送信息的功能。
-#### 云端实时控制功能
-利用5G通信功能，将智能小车接入华为云，并采用MQTT协议实现信息传输，从而实现从云端下发命令，实时检测、控制红绿灯状态的功能。控制模式包括但不限于：
-* 绿灯亮，黄、红两灯灭
-* 黄灯亮，绿、红两灯灭
-* 红灯亮，绿、黄两灯灭
-## 五、方案流程
-![img.png](picture/img.png)
-![img_1.png](picture/img_1.png)
-## 六、技术分析
-### 识别模块
-* 考虑到智能小车即设备端计算资源有限，我们团队将识别识别部分放在云端（电脑端），有效缓解了设备端的计算压力，同时云端可以直接根据计算结果将命令下发到多个设备端，实现多个设备端同时调控。  
-* 此外，在云端进行识别处理可以提供更精准的结果，在多个设备连接到同一个云端时，也能够同时考虑更多的设备，增强了智能小车的整体安全性。  
-* 我们团队同时注意到信息上传云端带来的用户数据隐私问题，这促使我们继续优化智能小车的设计和功能，为用户提供更加便捷、高效、安全的智能出行体验，为紧急车辆提供更安全、有效的行驶环境。  
-### 自动避障模块
-* 我们团队利用超声波模块，近似模拟了无人驾驶的障碍物识别、避让功能，更好地模拟了未来智能交通种的智能驾驶场景。该模块主要是利用声波反射的时延估计前方障碍物的距离，当识别到障碍物时，控制前置舵机左右旋转，分别测量左右两端的障碍物距离，并挑选距离最近的一个方向继续前进。  
-* 这种利用声波反射时延判断距离的方法较为简陋，精度较低，且只使用一个模块的情况下只能对一个方向进行识别，为车辆行驶安全留有一定的隐患，这推动着我们了解更多前沿科技，例如红外、雷达等测距方法，为车辆自动行驶提供更安全的条件。  
-### 循迹模块
-* 时间无操纵行驶会逐渐偏离原来的行驶方向，因此我们团队利用循迹模块保证车辆沿既定方向行驶，模拟自动驾驶中车辆沿规定方向行驶的情景。  
-* 循迹模块主要依赖一对灰度传感器，利用两侧灰度传感器测得的地面灰度值判断车辆是否偏离既定轨道，主要包含以下四个判断  
-```两白：未偏离轨道```  
-```左黑右白：车辆向右偏离轨道```  
-```左白右黑：车辆向左偏离轨道```  
-```两黑：车辆抵达停止线```  
-* 同时我们团队改进了传统的循迹模块，加入自动避障功能，并考虑我们设定的场景为单行道，简化了舵机判别模块，主要用于判断前方是否有障碍物。  
+What's more, we design a housing with a Red Cross on it for Ambulance with 3D printing, in order to make it different from private cars, which makes it possible to identify Ambulance by computer vision.
+
+并且，我们利用 3D 打印为 Ambulance 设计了一个带有红十字标志的外壳，以使其区别于私家车，从而模拟基于视觉的车辆识别。
+
+Another two HiSpark WiFi-IoT Developer Kits are converted into two traffic lights with 3D printing and some other electronic components such as wires and LED lights. They are marked as TrafficLightMain and TrafficLightSub, and are controlled together usually but possible to controlled them seperately if needed.
+
+通过使用 3D 打印技术和其他一些电子元件（例如导线和 LED 灯），另外两套 HiSpark WiFi-IoT 开发套件被改造为两台交通信号灯。他们被标记为 TrafficLightMain 和 TrafficLightSub，通常可以协同控制，但在需要时也可以独立控制。
+
+Each Kit mentioned above uses a Hi3861 SoC supporting 2.4G WiFi. More
+details and parameters about the SoC and Kit can be found on the link above and the website of HiSilicon ([link](www.hisilicon.com/en/products/smart-iot/ShortRangeWirelessIOT/Hi3861V100)).
+
+所有套件都使用支持 2.4G WiFi 的 Hi3861 芯片。关于芯片和套件的更多细节和参数可以在上面的链接和海思的网站上找到（[链接](www.hisilicon.com/cn/products/smart-iot/ShortRangeWirelessIOT/Hi3861V100)）。
+
+
+Besides, a HiSpark IPC DIY Camera ([Link](www.hihope.org/en/pro/pro1.aspx?mtt=23)) produced by HiHope is used as a Traffic Surveillance Camera you can see anywhere around the city. It uses a Hi3518 Camera SoC and a Hi3881 WiFi SoC, and more details and parameters about the SoC and Kit can be found on the link above and the website of HiSilicon ([link](www.hisilicon.com/en/products/smart-vision/consumer-camera/IOTVision/Hi3518EV300)).
+
+
+此外，一组 HiHope 润和生产的 HiSpark IPC 摄像头套件（[链接](www.hihope.org/pro/pro1.aspx?mtt=23)）被用作模拟城市中随处可见的交通监控摄像头。它使用一片 Hi3518 芯片和一片 Hi3881 芯片，关于芯片和套件的更多细节和参数可以在上面的链接和海思的网站上找到（[链接](www.hisilicon.com/cn/products/smart-vision/consumer-camera/IOTVision/Hi3518EV300)）。
+
+### Software
+
+All chips except the IPC Camera have LiteOS installed, while OpenHarmony is installed on the IPC Camera.
+
+除了 IPC 摄像头以外的所有芯片安装有 LiteOS 操作系统，而 IPC 摄像头安装了 OpenHarmony。
+
+-----
+
+More details will be provided soon, or you can create an issue to ask for further details. 
+
+更多细节很快将被提供，或者你也可以创建一个问题以获得更多更进一步的细节。
