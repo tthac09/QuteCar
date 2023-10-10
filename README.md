@@ -4,6 +4,12 @@ This is an Engineering Innovation Practice Course Project of our group. We tried
 
 这是我们团队的创新实践工程课程设计。我们尝试开发了一个为救护车或消防车等紧急车辆提供服务的智慧交通系统的演示模型，并用 Cute（可爱）一词将其命名为 QuteCar，意指我们相信智慧交通的光明未来将让每一个人喜欢它。
 
+## Roadshow
+
+You can find two videos on Page 20 of our slides RoadshowSlides.pptx, they show the the effectiveness of the system we design.
+
+幻灯片 RoadshowSlides.pptx 的第 20 页有两个视频，他们展示了我们设计的系统的效果。
+
 ## Details
 
 ### Hardware
